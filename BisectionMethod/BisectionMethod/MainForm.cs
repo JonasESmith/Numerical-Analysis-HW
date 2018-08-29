@@ -16,5 +16,10 @@ namespace BisectionMethod
     {
       InitializeComponent();
     }
+
+    private void comptueButton_Click(object sender, EventArgs e)
+    {
+
+    }
   }
 }
