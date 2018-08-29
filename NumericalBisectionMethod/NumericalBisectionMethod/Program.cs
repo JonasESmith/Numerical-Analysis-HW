@@ -18,18 +18,18 @@ namespace NumericalBisectionMethod
 
     static void Main(string[] args)
     {
-      double pointOne = 0;
+      double mindPoint = 0;
 
       for(int index = 0; index < iterations; index++)
       {
-        pointOne = (str_X + end_X) / 2;
-        if(function(pointOne) > function(str_X))
+        mindPoint = (str_X + end_X) / 2;
+        if(function(mindPoint) > function(str_X))
         {
 
         }
         else
         {
-          end_X = pointOne;
+          end_X = mindPoint;
         }
         // if (pointOne is negative then we need to take numbers to the right or left)
       }
