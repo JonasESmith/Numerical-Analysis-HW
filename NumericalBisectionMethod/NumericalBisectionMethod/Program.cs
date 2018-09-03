@@ -34,8 +34,13 @@ namespace NumericalBisectionMethod
             if (iterateValue)
             {
                 midPoint = (start_X + end_X) / 2;
-                Console.WriteLine( ApproximateZero(startX,   midPoint, iterations));
-                Console.WriteLine(ApproximateZero(midPoint, endX, iterations));
+                DisplayTop(startX, midPoint);
+                ApproximateZero(startX,   midPoint, iterations);
+                DisplayFooter();
+
+                DisplayTop(midPoint, endX);
+                ApproximateZero(midPoint, endX, iterations);
+                DisplayFooter();
             }
             else
             {
@@ -67,25 +72,38 @@ namespace NumericalBisectionMethod
                     end = midPoint;
                 }
 
-                DisplayInfo();
+                DisplayInfo(index, midPoint, start, end);
             }
 
             return midPoint;
         }
 
-        static void DisplayHeader()
+        static void DisplayFooter()
         {
-            Console.WriteLine("Programmer : Jonas Smith");
-            Console.WriteLine("Program    : Bissection Method - Numerical Analysis");
+            Console.WriteLine(" ------------------------------------------------");
             Console.WriteLine();
-            Console.WriteLine("  N   |                  |            |");
-            Console.WriteLine("----- | ---------------- | ---------- |");
-            // I love vanessa :) 
+            Console.WriteLine();
         }
 
-        static void DisplayInfo()
+        static void DisplayTop(double start, double end)
         {
+            Console.WriteLine("   N   |  X Value  |  Abs.Error  |  Rel.Error  |         Domain");
+            Console.WriteLine(" ----- | --------- | ----------- | ----------- |    {0} <= x <= {1}", start, end);
+        }
 
+        static void DisplayHeader()
+        {
+            Console.WriteLine("Programmer  :  Jonas Smith");
+            Console.WriteLine("Program     :  Bissection Method - Numerical Analysis");
+            Console.WriteLine();
+        }
+
+        static void DisplayInfo(int index, double approximation, double start, double end)
+        {
+            Console.WriteLine(" {0,5} |  {1,7}  | {2,11} | {3,11} |", index + 1, 
+                                                                      Math.Round(approximation, 5).ToString("0.00000"), 
+                                                                      Math.Round((end - start) / Math.Pow(2, index), 9), 
+                                                                      (((end - start) / start)).ToString("0.00000000"));
         }
 
         static int CalculateIterations()
