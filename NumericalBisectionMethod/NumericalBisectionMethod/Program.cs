@@ -1,32 +1,40 @@
-﻿
-using System;
-/// <summary>
+﻿/// <summary>
 ///     Programmer : Jonas Smith
 ///     Date start : 8/29/18
 ///     Purpose    : Create program that uses bisectin method to find zero between points
 /// </summary>
+using System;
+
 namespace NumericalBisectionMethod
 {
     class Program
     {
-        static double start_X = 0.5;
-        static double end_X = 4.5;
+        static  double start_X      = 0.5;
+        static  double end_X        = 4.5;
 
-        static double iterations = 15;
+        private int    Iterations   = 0;
+        private int    subIntervals = 0;
 
         // Initial function f(x) = (x-2)^2 - ln(x) = 0; 
-        static void Main(string[] args)
+        static void Main()
         {
-            bool iterateValue = CheckSigns(start_X, end_X);
-            IterateSet(iterateValue);
+            // Pass checkSigns variable to the iterateset so that I can determine if the function has multiple x-intercepts
+            IterateSet( CheckSigns(start_X, end_X) );
         }
 
         static void IterateSet(bool iterateValue)
         {
-            double mindPoint = 0;
+            double startX = start_X;
+            double endX   = end_X;
 
-            if(iterateValue)
+            double mindPoint = 0;
+            int iterations = 1;
+
+            CalculateIterations();
+
+            if (iterateValue)
             {
+                iterations = 2;
 
                 for (int index = 0; index < iterations; index++)
                 {
@@ -42,13 +50,22 @@ namespace NumericalBisectionMethod
                     // if (pointOne is negative then we need to take numbers to the right or left)
                 }
             }
+            else
+            {
+
+            }
+        }
+
+        static void CalculateIterations()
+        {
+            
         }
 
         static bool CheckSigns(double start_X, double end_x)
         {
             bool returnValue = true;
 
-            if(Math.Sign(start_X) != Math.Sign(end_X))
+            if (Math.Sign(start_X) != Math.Sign(end_X))
             {
                 returnValue = false;
             }
