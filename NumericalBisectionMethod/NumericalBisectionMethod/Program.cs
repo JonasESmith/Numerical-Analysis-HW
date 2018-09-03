@@ -12,7 +12,6 @@ namespace NumericalBisectionMethod
         static  double start_X      = 0.5;
         static  double end_X        = 4.5;
 
-        private int    Iterations   = 0;
         private int    subIntervals = 0;
 
         // Initial function f(x) = (x-2)^2 - ln(x) = 0; 
@@ -27,38 +26,48 @@ namespace NumericalBisectionMethod
             double startX = start_X;
             double endX   = end_X;
 
-            double mindPoint = 0;
-            int iterations = 1;
+            double midPoint = 0;
 
-            CalculateIterations();
+            int iterations = CalculateIterations();
 
             if (iterateValue)
             {
-                iterations = 2;
-
-                for (int index = 0; index < iterations; index++)
-                {
-                    mindPoint = (start_X + end_X) / 2;
-                    if (function(mindPoint) > function(start_X))
-                    {
-
-                    }
-                    else
-                    {
-                        end_X = mindPoint;
-                    }
-                    // if (pointOne is negative then we need to take numbers to the right or left)
-                }
+                midPoint = (start_X + end_X) / 2;
+                ApproximateZero(startX,   midPoint, iterations);
+                ApproximateZero(midPoint, endX,     iterations);
             }
             else
             {
-
+                ApproximateZero(startX, endX, iterations);
             }
         }
 
-        static void CalculateIterations()
+        static double ApproximateZero(double start, double end, int iterations)
         {
-            
+            double midPoint = 0;
+            double zeroValue = 0;
+
+            for (int index = 0; index < iterations; index++)
+            {
+                midPoint = (start_X + end_X) / 2;
+                if (function(midPoint) > function(start_X))
+                {
+
+                }
+                else
+                {
+                    end_X = midPoint;
+                }
+                // if (pointOne is negative then we need to take numbers to the right or left)
+            }
+
+
+            return zeroValue;
+        }
+
+        static int CalculateIterations()
+        {
+            return 14;
         }
 
         static bool CheckSigns(double start_X, double end_x)
