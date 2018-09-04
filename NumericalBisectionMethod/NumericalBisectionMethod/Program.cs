@@ -30,7 +30,7 @@ namespace NumericalBisectionMethod
 
             double midPoint = 0;
 
-            int iterations = CalculateIterations();
+            int iterations = CalculateIterations(startX, endX);
 
             if (iterateValue)
             {
@@ -112,9 +112,9 @@ namespace NumericalBisectionMethod
                                       (((end - start) / start)).ToString("0.00000000"));
         }
 
-        static int CalculateIterations()
+        static int CalculateIterations(double start, double end)
         {
-            return Convert.ToInt32(Math.Ceiling( 5 * Math.Log(10) / Math.Log(2)));
+            return Convert.ToInt32(Math.Ceiling( 5 * Math.Log((end - start) * 10) / Math.Log(2)));
         }
 
         static bool CheckSigns(double start_X, double end_x)
