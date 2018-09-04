@@ -3,6 +3,7 @@ Write a computer program for Bisection method to solve.
 
 
 # Program Console Output
+<p>
 Programmer  :  Jonas Smith
 Program     :  Bissection Method - Numerical Analysis
 
@@ -68,3 +69,5 @@ Program     :  Bissection Method - Numerical Analysis
     26 |  3.05710  |           0 |  0.00000001 |
     27 |  3.05710  |           0 |  0.00000000 |
  ------------------------------------------------
+ 
+ </p>
