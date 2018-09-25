@@ -1,31 +1,46 @@
-﻿using System;
+﻿///<summary>
+/// Programmer : Jonas Smith
+/// Purpose    : Use newtons method to find root for given function f(x)
+/// </summary>
+using System;
 using System.Linq;
 
 namespace NumericalAnalHW2
 {
   class Program
   {
+    /// This value needs to be global as it is passed around a lot for the entire applicaiton
     static decimal lastXValue = 0;
 
     static void Main()
     {
-      decimal xNotValue = 1;
-      decimal newXNot = 0;
-      int index = 0;
-      bool returnValue = false;
-
+      /// Init values used in bellow methods that don't need to be global to the class
+      decimal xNotValue    = 1;
+      decimal newXNot     = 0;
+      int     index       = 0;
+      bool    returnValue = false;
+      
+      /// Print's headers for the application telling who the programmer is and purpose
       PrintHeader();
 
+      /// While(!false) continue to iterate through, only true when the last 5 decimals of the next_X_Value match
       do
       {
+        /// Get new X_n value from calling IteracteFunc which uses Newtons root method
+        newXNot     = IterateFunc(xNotValue);
 
-        newXNot = IterateFunc(xNotValue);
+        /// Checks the last five decimals of a number to make sure they are matching
         CheckDecimals(index, newXNot);
+
+        /// prints current X_n-1 and X_n I print it here instead of storing the value 
+        ///   just cus
         PrintData(index, newXNot);
-        lastXValue = newXNot;
-        xNotValue = newXNot;
 
+        // Swap values for the next iteration.
+        lastXValue  = newXNot;
+        xNotValue   = newXNot;
 
+        /// increment index for data printing and other function needs
         index++;
 
       } while (!returnValue);
