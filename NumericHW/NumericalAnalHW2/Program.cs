@@ -21,8 +21,9 @@ namespace NumericalAnalHW2
 
         newXNot = IterateFunc(xNotValue);
         CheckDecimals(index, newXNot);
-        xNotValue = newXNot;
         PrintData(index, newXNot);
+        lastXValue = newXNot;
+        xNotValue = newXNot;
 
 
         index++;
@@ -78,7 +79,7 @@ namespace NumericalAnalHW2
           }
           else
           {
-            lastXValue = xInputValue;
+            //lastXValue = xInputValue;
             goto numbers_didnt_match;
           }
         }
@@ -93,23 +94,20 @@ namespace NumericalAnalHW2
     {
       Console.WriteLine("Programmer : Jonas Smith");
       Console.WriteLine("Purpose    : Numerical HW2");
-
-      //Console.WriteLine(" f(input)  | f(output) ");
-      //Console.WriteLine(" --------  | --------- ");
     }
 
     private static void PrintData(int index, double xValue)
     {
       if(index < 1)
       {
-        Console.WriteLine("{0}.  f(input)  : {1}", ++index, 1.0000000);
+        Console.WriteLine("{0,-3} (input)  : {1}", ++index + ".", 1.0000000);
         Console.WriteLine("    f(output) : {0}", xValue);
         Console.WriteLine();
       }
 
       else
       {
-        Console.WriteLine("{0}.  f(input)  : {1}",++index, lastXValue);
+        Console.WriteLine("{0,-3} f(input)  : {1}",++index + ".", lastXValue);
         Console.WriteLine("    f(output) : {0}", xValue);
         Console.WriteLine();
       }
