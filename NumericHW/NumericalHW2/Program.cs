@@ -121,23 +121,24 @@ namespace NumericalAnalHW2
 
     private static void PrintHeader()
     {
-      Console.WriteLine("Programmer : Jonas Smith");
-      Console.WriteLine("Purpose    : Numerical HW2");
+      Console.WriteLine("Programmer      : Jonas Smith");
+      Console.WriteLine("Purpose         : Numerical HW2");
+      Console.WriteLine();
     }
 
     private static void PrintData(int index, decimal xValue)
     {
       if(index < 1)
       {
-        Console.WriteLine("{0,-3} X_Value     : {1}", ++index + ".", 1.0000000);
-        Console.WriteLine("    f(x) Output : {0}", xValue);
+        Console.WriteLine("{0,-3} X_Value     : {1:f7}", ++index + ".", 1.0000000);
+        Console.WriteLine("    f(x) Output : {0:f7}", xValue);
         Console.WriteLine();
       }
 
       else
       {
-        Console.WriteLine("{0,-3} X_Value     : {1}", ++index + ".", lastXValue);
-        Console.WriteLine("    f(x) Output : {0}", xValue);
+        Console.WriteLine("{0,-3} X_Value     : {1:f7}", ++index + ".", lastXValue);
+        Console.WriteLine("    f(x) Output : {0:f7}", xValue);
         Console.WriteLine();
       }
     }
