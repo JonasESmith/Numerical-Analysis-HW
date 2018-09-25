@@ -30,7 +30,7 @@ namespace NumericalAnalHW2
         newXNot     = IterateFunc(xNotValue);
 
         /// Checks the last five decimals of a number to make sure they are matching
-        CheckDecimals(index, newXNot);
+        returnValue = CheckDecimals(index, newXNot);
 
         /// prints current X_n-1 and X_n I print it here instead of storing the value 
         ///   just cus
@@ -44,6 +44,8 @@ namespace NumericalAnalHW2
         index++;
 
       } while (!returnValue);
+
+      Console.ReadLine();
     }
 
     private static decimal IterateFunc(decimal inputValue)
@@ -90,14 +92,14 @@ namespace NumericalAnalHW2
         lastXValue = xInputValue;
       else
       {
-        char[] prevXValue = lastXValue.ToString().Take(7).ToArray();
-        char[] nextXValue = xInputValue.ToString().Take(7).ToArray();
+        char[] prevXValue = lastXValue.ToString().Take(8).ToArray();
+        char[] nextXValue = xInputValue.ToString().Take(8).ToArray();
 
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 8; i++)
         {
           if (prevXValue[i] == nextXValue[i])
           {
-            if (iterationCounter == 6)
+            if (iterationCounter == 7)
             {
               returnValue = true;
             }
@@ -127,15 +129,15 @@ namespace NumericalAnalHW2
     {
       if(index < 1)
       {
-        Console.WriteLine("{0,-3} (input)  : {1}", ++index + ".", 1.0000000);
-        Console.WriteLine("    f(output) : {0}", xValue);
+        Console.WriteLine("{0,-3} X_Value     : {1}", ++index + ".", 1.0000000);
+        Console.WriteLine("    f(x) Output : {0}", xValue);
         Console.WriteLine();
       }
 
       else
       {
-        Console.WriteLine("{0,-3} f(input)  : {1}",++index + ".", lastXValue);
-        Console.WriteLine("    f(output) : {0}", xValue);
+        Console.WriteLine("{0,-3} X_Value     : {1}", ++index + ".", lastXValue);
+        Console.WriteLine("    f(x) Output : {0}", xValue);
         Console.WriteLine();
       }
     }
