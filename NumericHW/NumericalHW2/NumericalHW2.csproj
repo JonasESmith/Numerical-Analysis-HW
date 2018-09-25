@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CD99B6F5-D9CB-47E7-9FF3-BE361F887035}</ProjectGuid>
+    <ProjectGuid>{EE6C41F4-0B48-449C-A011-C5D7949A8EB0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>NumericalAnalHW2</RootNamespace>
     <AssemblyName>NumericalAnalHW2</AssemblyName>

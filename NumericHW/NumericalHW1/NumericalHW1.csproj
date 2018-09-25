@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6635818B-BFBD-4DD3-88A3-CBFA55052C1F}</ProjectGuid>
+    <ProjectGuid>{B87AB21C-5355-462F-A90F-F9D4727592A9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NumericalBisectionMethod</RootNamespace>
