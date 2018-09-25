@@ -5,12 +5,12 @@ namespace NumericalAnalHW2
 {
   class Program
   {
-    static double lastXValue = 0;
+    static decimal lastXValue = 0;
 
     static void Main()
     {
-      double xNotValue = 1;
-      double newXNot = 0;
+      decimal xNotValue = 1;
+      decimal newXNot = 0;
       int index = 0;
       bool returnValue = false;
 
@@ -31,30 +31,42 @@ namespace NumericalAnalHW2
       } while (!returnValue);
     }
 
-    private static double IterateFunc(double inputValue)
+    private static decimal IterateFunc(decimal inputValue)
     {
-      double outPutValue = 0;
+      decimal outPutValue = 0;
 
       outPutValue = inputValue - ((Function(inputValue)) / (Derivative(inputValue)));
 
       return outPutValue;
     }
 
-    private static double Function(double input)
+    private static decimal Function(decimal input)
     {
-      double outPutValue = Math.Sin(input) + (Math.Pow(input, 2) * Math.Cos(input)) - Math.Pow(input, 2) - input;
+      double doubleInput = Convert.ToDouble(input);
+
+      decimal outPutValue = Convert.ToDecimal(Math.Sin(doubleInput) + 
+                                             (Math.Pow(doubleInput, 2) * 
+                                             Math.Cos(doubleInput)) - 
+                                             Math.Pow(doubleInput, 2) - 
+                                             doubleInput);
 
       return outPutValue;
     }
 
-    private static double Derivative(double input)
+    private static decimal Derivative(decimal input)
     {
-      double outPutValue = Math.Cos(input) + (2 * (input) * Math.Cos(input)) - Math.Pow(input, 2) * Math.Sin(input) - 2 * input - 1;
+      double doubleInput = Convert.ToDouble(input);
+
+      decimal outPutValue = Convert.ToDecimal(Math.Cos(doubleInput) + 
+                                              (2 * (doubleInput) * Math.Cos(doubleInput)) - 
+                                              Math.Pow(doubleInput, 2) * 
+                                              Math.Sin(doubleInput) - 
+                                              2 * doubleInput - 1);
 
       return outPutValue;
     }
 
-    private static bool CheckDecimals(int index, double xInputValue)
+    private static bool CheckDecimals(int index, decimal xInputValue)
     {
       bool returnValue = false;
       int iterationCounter = 0;
@@ -96,7 +108,7 @@ namespace NumericalAnalHW2
       Console.WriteLine("Purpose    : Numerical HW2");
     }
 
-    private static void PrintData(int index, double xValue)
+    private static void PrintData(int index, decimal xValue)
     {
       if(index < 1)
       {
