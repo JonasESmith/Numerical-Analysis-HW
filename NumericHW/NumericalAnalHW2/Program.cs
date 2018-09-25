@@ -14,13 +14,15 @@ namespace NumericalAnalHW2
       int index = 0;
       bool returnValue = false;
 
+      PrintHeader();
+
       do
       {
 
         newXNot = IterateFunc(xNotValue);
         CheckDecimals(index, newXNot);
         xNotValue = newXNot;
-        PrintData();
+        PrintData(index, newXNot);
 
 
         index++;
@@ -87,9 +89,30 @@ namespace NumericalAnalHW2
       return returnValue;
     }
 
-    private static void PrintData()
+    private static void PrintHeader()
     {
+      Console.WriteLine("Programmer : Jonas Smith");
+      Console.WriteLine("Purpose    : Numerical HW2");
 
+      //Console.WriteLine(" f(input)  | f(output) ");
+      //Console.WriteLine(" --------  | --------- ");
+    }
+
+    private static void PrintData(int index, double xValue)
+    {
+      if(index < 1)
+      {
+        Console.WriteLine("{0}.  f(input)  : {1}", ++index, 1.0000000);
+        Console.WriteLine("    f(output) : {0}", xValue);
+        Console.WriteLine();
+      }
+
+      else
+      {
+        Console.WriteLine("{0}.  f(input)  : {1}",++index, lastXValue);
+        Console.WriteLine("    f(output) : {0}", xValue);
+        Console.WriteLine();
+      }
     }
   }
 }
