@@ -27,6 +27,7 @@ namespace NumericalHW3
         {
             Function(4, 4);
             Derivative(4, 4);
+            Integral(4, 4);
             Console.ReadLine();
         }
 
@@ -81,9 +82,34 @@ namespace NumericalHW3
             return returnValue;
         }
 
-        static double Integral(double value)
+        static double Integral(double value, int iteration)
         {
-            double returnValue = 0.00;
+            double returnValue = value;
+
+            double[] integralArray = new double[iteration + 1];
+
+            for (int i = iteration + 1; i > 0; i--)
+            {
+                if (i == (iteration + 1))
+                {
+                    returnValue = function[i - 2] / (i - 1);
+                }
+                else
+                {
+                    if(i < 2)
+                    {
+                        returnValue = integralArray[i] * value;
+                    }
+                    else
+                    {
+                        returnValue = function[i - 2] / (i - 1) + integralArray[i] * value;
+                    }
+                }
+
+                Console.WriteLine(returnValue);
+
+                integralArray[i - 1] = returnValue;
+            }
 
             return returnValue;
         }
