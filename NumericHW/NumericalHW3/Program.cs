@@ -34,9 +34,9 @@ namespace NumericalHW3
             Console.WriteLine();
 
             function = new double[4] { 2.08, -0.16, 0.14, -0.04 };
-            Function(3, 3);
-            Derivative(3, 3);
-            Integral(3, 3);
+            Function(3, 4);
+            Derivative(3, 4);
+            Integral(3, 4);
             Console.ReadLine();
         }
 
