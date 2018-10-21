@@ -20,14 +20,23 @@ namespace NumericalHW3
                                           { 3, 1.42 }, 
                                           { 5, 0.66 } };
 
-        static double[] function = new double[4] { 1.28, -0.4, 0.2, -0.02 }; //{ -0.02, 0.2, -0.4, 1.28 }
-        // static double[] function = new double[4] { -0.02 ,  0.1 ,  -0.2 ,  1.66  };
+        static double[] function;
 
     static void Main(string[] args)
         {
+
+            function = new double[4] { 1.66, -0.2, 0.1, -0.02 };
             Function(4, 4);
             Derivative(4, 4);
             Integral(4, 4);
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            function = new double[4] { 2.08, -0.16, 0.14, -0.04 };
+            Function(3, 3);
+            Derivative(3, 3);
+            Integral(3, 3);
             Console.ReadLine();
         }
 
