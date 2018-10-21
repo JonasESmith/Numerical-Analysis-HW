@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalHW1", "NumericalHW1\NumericalHW1.csproj", "{B87AB21C-5355-462F-A90F-F9D4727592A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalHW2", "NumericalHW2\NumericalHW2.csproj", "{EE6C41F4-0B48-449C-A011-C5D7949A8EB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalHW3", "NumericalHW3\NumericalHW3.csproj", "{503FDFE6-2A7D-4DCC-B754-BA680CBD0E05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{EE6C41F4-0B48-449C-A011-C5D7949A8EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE6C41F4-0B48-449C-A011-C5D7949A8EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE6C41F4-0B48-449C-A011-C5D7949A8EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503FDFE6-2A7D-4DCC-B754-BA680CBD0E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503FDFE6-2A7D-4DCC-B754-BA680CBD0E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503FDFE6-2A7D-4DCC-B754-BA680CBD0E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503FDFE6-2A7D-4DCC-B754-BA680CBD0E05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

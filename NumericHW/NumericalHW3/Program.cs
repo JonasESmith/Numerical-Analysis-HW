@@ -13,26 +13,70 @@ namespace NumericalHW3
 {
     class Program
     {
-        static void Main(string[] args)
+        static List<double> functionList = new List<double>();
+        static double[,] points = new double[4, 2] 
+                                        { { 1 ,1.54 }, 
+                                          { 2, 1.5  }, 
+                                          { 3, 1.42 }, 
+                                          { 5, 0.66 } };
+
+        static double[] function = new double[4] { 1.28, -0.4, 0.2, -0.02 }; //{ -0.02, 0.2, -0.4, 1.28 }
+        // static double[] function = new double[4] { -0.02 ,  0.1 ,  -0.2 ,  1.66  };
+
+    static void Main(string[] args)
         {
-            
+            Function(4, 4);
+            Derivative(4, 4);
+            Console.ReadLine();
         }
 
-        static double Function(double value, int iteration)
+        static double Function(double inputValue, int iteration)
         {
-            double returnValue = 0.00;
+            double[] functionList = new double[iteration];
 
-            for(int i = 0; i < (iteration - 1); i++)
+            double returnValue = inputValue;
+
+            for (int i = iteration; i > 0; i--)
             {
+                if (i == iteration)
+                {
+                    returnValue = function[i - 1];
+                }
+                else
+                {
+                    returnValue = Math.Round(function[i - 1] + functionList[i] * inputValue, 3);
+                }
 
+                Console.WriteLine(returnValue);
+
+                functionList[i - 1] = returnValue;
             }
 
             return returnValue;
         }
 
-        static double Derivative(double value)
+        static double Derivative(double value, int iteration)
         {
-            double returnValue = 0.00;
+            double returnValue = value;
+
+            double[] derivativeArray = new double[iteration - 1];
+
+
+            for (int i = iteration - 1; i > 0; i--)
+            {
+                if (i == (iteration - 1))
+                {
+                    returnValue = i * function[i];
+                }
+                else
+                {
+                    returnValue = Math.Round(i * function[i] + derivativeArray[i] * value, 3);
+                }
+
+                Console.WriteLine(returnValue);
+
+                derivativeArray[i - 1] = returnValue;
+            }
 
             return returnValue;
         }
