@@ -14,11 +14,6 @@ namespace NumericalHW3
     class Program
     {
         static List<double> functionList = new List<double>();
-        static double[,] points = new double[4, 2] 
-                                          {{ 1 ,1.54 } ,  
-                                           { 2, 1.5  } ,  
-                                           { 3, 1.42 } ,  
-                                           { 5, 0.66 } };
 
         static double[] function;
 
@@ -28,13 +23,13 @@ namespace NumericalHW3
 
             function = new double[4] { 1.66, -0.2, 0.1, -0.02 };
 
-            Console.WriteLine("1) For the function -0.02x^3 + 0.1x^2 - 0.2x + 1.66");
-            Console.WriteLine();
-            Console.WriteLine("   the function value at P(4) = {0}",Function(4, 4));
-            Console.WriteLine();
-            Console.WriteLine("   the function value at P'(4) = {0}", Derivative(4, 4));
-            Console.WriteLine();
-            Console.WriteLine("   the function value at I(4) = {0: 0.00000}", Integral(4, 4));
+            Console.WriteLine("1)    For the function -0.02x^3 + 0.1x^2 - 0.2x + 1.66");
+            Console.WriteLine();    
+            Console.WriteLine("      the function value at P(4) = {0}",Function(4, 4));
+            Console.WriteLine();    
+            Console.WriteLine("      the function value at P'(4) = {0}", Derivative(4, 4));
+            Console.WriteLine();    
+            Console.WriteLine("      the function value at I(4) = {0: 0.00000}", Integral(4, 4));
             Console.WriteLine();
             Console.WriteLine();
 
@@ -49,7 +44,7 @@ namespace NumericalHW3
         static double Function(double inputValue, int iteration)
         {
 
-            Console.WriteLine("   a)");
+            string orderChar = "  a)";
             int counter = iteration;
 
             double[] functionList = new double[iteration];
@@ -64,20 +59,22 @@ namespace NumericalHW3
                 }
                 else
                 {
+                    orderChar = "    ";
                     returnValue = Math.Round(function[i - 1] + functionList[i] * inputValue, 3);
                 }
 
-                Console.WriteLine("   b{0} ={1,5}" , --counter , returnValue);
+                Console.WriteLine("{0}   b{1} ={2,5}" ,orderChar , --counter , returnValue);
 
                 functionList[i - 1] = returnValue;
             }
 
+            Console.WriteLine();
             return returnValue;
         }
 
         static double Derivative(double value, int iteration)
         {
-            Console.WriteLine("   b)");
+            string orderChar = "  b)";
             int counter = iteration - 1;
 
             double returnValue = value;
@@ -93,20 +90,22 @@ namespace NumericalHW3
                 }
                 else
                 {
+                    orderChar = "    ";
                     returnValue = Math.Round(i * function[i] + derivativeArray[i] * value, 3);
                 }
 
-                Console.WriteLine("   d{0} ={1,5}", --counter, returnValue);
+                Console.WriteLine("{0}   d{1} ={2,5}", orderChar, --counter, returnValue);
 
                 derivativeArray[i - 1] = returnValue;
             }
 
+            Console.WriteLine();
             return returnValue;
         }
 
         static double Integral(double value, int iteration)
         {
-            string orderChar = "   c)";
+            string orderChar = "  c)";
             int counter = iteration + 1;
 
             double returnValue = value;
@@ -137,6 +136,7 @@ namespace NumericalHW3
                 integralArray[i - 1] = returnValue;
             }
 
+            Console.WriteLine();
             return returnValue;
         }
 
