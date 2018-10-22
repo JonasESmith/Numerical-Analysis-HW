@@ -15,24 +15,30 @@ namespace NumericalHW3
     {
         static List<double> functionList = new List<double>();
         static double[,] points = new double[4, 2] 
-                                        { { 1 ,1.54 }, 
-                                          { 2, 1.5  }, 
-                                          { 3, 1.42 }, 
-                                          { 5, 0.66 } };
+                                          {{ 1 ,1.54 } ,  
+                                           { 2, 1.5  } ,  
+                                           { 3, 1.42 } ,  
+                                           { 5, 0.66 } };
 
         static double[] function;
 
     static void Main(string[] args)
         {
+            WriteHeader();
 
             function = new double[4] { 1.66, -0.2, 0.1, -0.02 };
-            Function(4, 4);
-            Derivative(4, 4);
-            Integral(4, 4);
 
+            Console.WriteLine("1) For the function -0.02x^3 + 0.1x^2 - 0.2x + 1.66");
+            Console.WriteLine();
+            Console.WriteLine("   the function value at P(4) = {0}",Function(4, 4));
+            Console.WriteLine();
+            Console.WriteLine("   the function value at P'(4) = {0}", Derivative(4, 4));
+            Console.WriteLine();
+            Console.WriteLine("   the function value at I(4) = {0: 0.00000}", Integral(4, 4));
             Console.WriteLine();
             Console.WriteLine();
 
+            Console.WriteLine("For the function -0.04x^3 + 0.14x^2 - 0.16x + 2.08");
             function = new double[4] { 2.08, -0.16, 0.14, -0.04 };
             Function(3, 4);
             Derivative(3, 4);
@@ -42,6 +48,10 @@ namespace NumericalHW3
 
         static double Function(double inputValue, int iteration)
         {
+
+            Console.WriteLine("   a)");
+            int counter = iteration;
+
             double[] functionList = new double[iteration];
 
             double returnValue = inputValue;
@@ -57,7 +67,7 @@ namespace NumericalHW3
                     returnValue = Math.Round(function[i - 1] + functionList[i] * inputValue, 3);
                 }
 
-                Console.WriteLine(returnValue);
+                Console.WriteLine("   b{0} ={1,5}" , --counter , returnValue);
 
                 functionList[i - 1] = returnValue;
             }
@@ -67,6 +77,9 @@ namespace NumericalHW3
 
         static double Derivative(double value, int iteration)
         {
+            Console.WriteLine("   b)");
+            int counter = iteration - 1;
+
             double returnValue = value;
 
             double[] derivativeArray = new double[iteration - 1];
@@ -83,7 +96,7 @@ namespace NumericalHW3
                     returnValue = Math.Round(i * function[i] + derivativeArray[i] * value, 3);
                 }
 
-                Console.WriteLine(returnValue);
+                Console.WriteLine("   d{0} ={1,5}", --counter, returnValue);
 
                 derivativeArray[i - 1] = returnValue;
             }
@@ -93,6 +106,9 @@ namespace NumericalHW3
 
         static double Integral(double value, int iteration)
         {
+            string orderChar = "   c)";
+            int counter = iteration + 1;
+
             double returnValue = value;
 
             double[] integralArray = new double[iteration + 1];
@@ -105,7 +121,8 @@ namespace NumericalHW3
                 }
                 else
                 {
-                    if(i < 2)
+                    orderChar = "    ";
+                    if (i < 2)
                     {
                         returnValue = integralArray[i] * value;
                     }
@@ -115,12 +132,19 @@ namespace NumericalHW3
                     }
                 }
 
-                Console.WriteLine(returnValue);
+                Console.WriteLine("{0}   i{1} ={2, 10: 0.000000}", orderChar, --counter, returnValue);
 
                 integralArray[i - 1] = returnValue;
             }
 
             return returnValue;
+        }
+
+        public static void WriteHeader()
+        {
+            Console.WriteLine(" Programmer : Jonas Smith");
+            Console.WriteLine(" Assignment : Numerical Analysis Hw 3");
+            Console.WriteLine(" ------------------------------------");
         }
     }
 }
