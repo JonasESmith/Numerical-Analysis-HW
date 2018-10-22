@@ -17,27 +17,29 @@ namespace NumericalHW3
 
         static double[] function;
 
-    static void Main(string[] args)
+        static void Main(string[] args)
         {
             WriteHeader();
 
             function = new double[4] { 1.66, -0.2, 0.1, -0.02 };
-
             Console.WriteLine("1)    For the function -0.02x^3 + 0.1x^2 - 0.2x + 1.66");
-            Console.WriteLine();    
-            Console.WriteLine("      the function value at P(4) = {0}",Function(4, 4));
-            Console.WriteLine();    
-            Console.WriteLine("      the function value at P'(4) = {0}", Derivative(4, 4));
-            Console.WriteLine();    
-            Console.WriteLine("      the function value at I(4) = {0: 0.00000}", Integral(4, 4));
             Console.WriteLine();
+            Console.WriteLine("      the function value at P(4) = {0}", Function(4, 4));
+            Console.WriteLine();
+            Console.WriteLine("      the derivative value at P'(4) = {0}", Derivative(4, 4));
+            Console.WriteLine();
+            Console.WriteLine("  c)  the integral from 1 to 4 of f(x) = {0}", Integral(4,4, false) - Integral(1,4,false));
             Console.WriteLine();
 
-            Console.WriteLine("For the function -0.04x^3 + 0.14x^2 - 0.16x + 2.08");
+
             function = new double[4] { 2.08, -0.16, 0.14, -0.04 };
-            Function(3, 4);
-            Derivative(3, 4);
-            Integral(3, 4);
+            Console.WriteLine("2)    For the function -0.04x^3 + 0.14x^2 - 0.16x + 2.08");
+            Console.WriteLine();
+            Console.WriteLine("      the function value at P(4) = {0}", Function(3, 4));
+            Console.WriteLine();
+            Console.WriteLine("      the function value at P'(4) = {0}", Derivative(3, 4));
+            Console.WriteLine();
+            Console.WriteLine("  c)  the integral from 0 to 3 of f(x) = {0}", Integral(3, 4, false) - Integral(0, 4, false));
             Console.ReadLine();
         }
 
@@ -63,7 +65,7 @@ namespace NumericalHW3
                     returnValue = Math.Round(function[i - 1] + functionList[i] * inputValue, 3);
                 }
 
-                Console.WriteLine("{0}   b{1} ={2,5}" ,orderChar , --counter , returnValue);
+                Console.WriteLine("{0}  b{1} ={2,5}", orderChar, --counter, returnValue);
 
                 functionList[i - 1] = returnValue;
             }
@@ -94,7 +96,7 @@ namespace NumericalHW3
                     returnValue = Math.Round(i * function[i] + derivativeArray[i] * value, 3);
                 }
 
-                Console.WriteLine("{0}   d{1} ={2,5}", orderChar, --counter, returnValue);
+                Console.WriteLine("{0}  d{1} ={2,5}", orderChar, --counter, returnValue);
 
                 derivativeArray[i - 1] = returnValue;
             }
@@ -103,7 +105,7 @@ namespace NumericalHW3
             return returnValue;
         }
 
-        static double Integral(double value, int iteration)
+        static double Integral(double value, int iteration, bool write)
         {
             string orderChar = "  c)";
             int counter = iteration + 1;
@@ -131,12 +133,11 @@ namespace NumericalHW3
                     }
                 }
 
-                Console.WriteLine("{0}   i{1} ={2, 10: 0.000000}", orderChar, --counter, returnValue);
+                if(write)
+                    Console.WriteLine("{0}  i{1} ={2, 10: 0.000000}", orderChar, --counter, returnValue);
 
                 integralArray[i - 1] = returnValue;
             }
-
-            Console.WriteLine();
             return returnValue;
         }
 
