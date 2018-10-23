@@ -146,3 +146,44 @@ namespace NumericalHW3
         }
     }
 }
+
+
+/// <summary>
+///     Console Output window
+/// </summary>
+//Programmer : Jonas Smith
+// Assignment : Numerical Analysis Hw 3
+// ------------------------------------
+//1)    For the function -0.02x^3 + 0.1x^2 - 0.2x + 1.66
+
+//  a)  b3 =-0.02
+//      b2 = 0.02
+//      b1 =-0.12
+//      b0 = 1.18
+
+//      the function value at P(4) = 1.18
+
+//  b)  d2 =-0.06
+//      d1 =-0.04
+//      d0 =-0.36
+
+//      the derivative value at P'(4) = -0.36
+
+//  c)  the integral from 1 to 4 of f(x) = 4.305
+
+//2)    For the function -0.04x^3 + 0.14x^2 - 0.16x + 2.08
+
+//  a)  b3 =-0.04
+//      b2 = 0.02
+//      b1 = -0.1
+//      b0 = 1.78
+
+//      the function value at P(4) = 1.78
+
+//  b)  d2 =-0.12
+//      d1 =-0.08
+//      d0 = -0.4
+
+//      the function value at P'(4) = -0.4
+
+//  c)  the integral from 0 to 3 of f(x) = 5.97
