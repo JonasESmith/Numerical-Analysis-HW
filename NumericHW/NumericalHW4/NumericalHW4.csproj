@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{503FDFE6-2A7D-4DCC-B754-BA680CBD0E05}</ProjectGuid>
+    <ProjectGuid>{FF6B8B70-9953-468C-B7A4-7DCFD3A344A9}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>NumericalHW3</RootNamespace>
-    <AssemblyName>NumericalHW3</AssemblyName>
+    <RootNamespace>NumericalHW4</RootNamespace>
+    <AssemblyName>NumericalHW4</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NumericalHW3.cs" />
+    <Compile Include="NumericalHw4.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

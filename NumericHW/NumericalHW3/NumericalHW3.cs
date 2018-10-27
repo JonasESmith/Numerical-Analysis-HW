@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace NumericalHW3
 {
-    class Program
+    class NumericalHW3
     {
         static List<double> functionList = new List<double>();
 
