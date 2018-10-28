@@ -25,8 +25,10 @@ namespace NumericalHW4
             // Takes passed x_value and approximates the value of the Lagrange interpolating polynomial
             LagrangePolynomial(2.75);
 
+            NewtonPolynomial(points_List.Count, 2.75);
             Console.ReadLine();
         }
+
 
         static double LagrangePolynomial(double x_Value)
         {
@@ -53,9 +55,26 @@ namespace NumericalHW4
             return approximate;
         }
 
-        static double NewtonPolynomial()
+        // recursive method to find Newton polynomial
+        static double NewtonPolynomial(int index, double xValue)
         {
             double value = 0;
+            double multipliedValue;
+
+            if(index != 0)
+            {
+                multipliedValue = 1.0;
+                for (int i = index; i > 0; i++)
+                {
+                    multipliedValue *= (xValue - points_List[i].X);
+                }
+                value += points_List[index].Y * multipliedValue;
+
+            }
+            else if(index == 0)
+            {
+                value += points_List[index].Y;
+            }
 
             return value;
         }
