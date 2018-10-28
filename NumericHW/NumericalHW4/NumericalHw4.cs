@@ -18,14 +18,15 @@ namespace NumericalHW4
             new Point( 3   , 7.5625 ),
             new Point( 4.5 , 8.4453 ),
             new Point( 5   , 9.1875 ),
-            new Point( 6   , 12     )  };
+            new Point( 6   , 12     )
+        };
 
         static void Main()
         {
             // Takes passed x_value and approximates the value of the Lagrange interpolating polynomial
             LagrangePolynomial(2.75);
 
-            NewtonPolynomial(points_List.Count, 2.75);
+            Console.WriteLine("{0}", NewtonPolynomial(points_List.Count, 2.75, 0));
             Console.ReadLine();
         }
 
@@ -56,24 +57,19 @@ namespace NumericalHW4
         }
 
         // recursive method to find Newton polynomial
-        static double NewtonPolynomial(int index, double xValue)
+        static double NewtonPolynomial(int index, double xValue, double passedValue)
         {
-            double value = 0;
+            double value = passedValue;
             double multipliedValue;
 
-            if(index != 0)
+            if(index > 0)
             {
                 multipliedValue = 1.0;
-                for (int i = index; i > 0; i++)
+                for (int i = index - 1; i > 0; i--)
                 {
-                    multipliedValue *= (xValue - points_List[i].X);
+                    multipliedValue *= (xValue - points_List[i - 1].X);
                 }
-                value += points_List[index].Y * multipliedValue;
-
-            }
-            else if(index == 0)
-            {
-                value += points_List[index].Y;
+                value += NewtonPolynomial(index - 1, xValue, value) + points_List[index - 1].Y * multipliedValue;
             }
 
             return value;
