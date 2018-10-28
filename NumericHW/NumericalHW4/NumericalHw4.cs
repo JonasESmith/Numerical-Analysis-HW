@@ -11,30 +11,28 @@ namespace NumericalHW4
 
         // Init pointsList for use in the different approximations. These are the points given from the HW.
         public static List<Point> points_List = new List<Point>()
-        {
-         // new Point( xVal, yVal),
+        {   // new Point( xVal, yVal),
             new Point( 0   , 2      ),
             new Point( 1   , 5.4375 ),
             new Point( 2.5 , 7.3516 ),
             new Point( 3   , 7.5625 ),
             new Point( 4.5 , 8.4453 ),
             new Point( 5   , 9.1875 ),
-            new Point( 6   , 12     )
-        };
+            new Point( 6   , 12     )  };
 
-        static void Main(string[] args)
+        static void Main()
         {
-            foreach (Point point in points_List)
-            {
-                LagrangePolynomial(points_List.Count, point.X);
-            }
+            // Takes passed x_value and approximates the value of the Lagrange interpolating polynomial
+            LagrangePolynomial(2.75);
 
             Console.ReadLine();
         }
 
-        static double LagrangePolynomial(int Degree, double x_Value)
+        static double LagrangePolynomial(double x_Value)
         {
-            double approximation = 0.0;
+            int Degree = points_List.Count;
+
+            double approximate = 0.0;
             double value = 1.0;
 
             for(int i = 0; i < Degree; i++)
@@ -48,11 +46,11 @@ namespace NumericalHW4
                 }
                 value *= points_List[i].Y;
 
-                approximation += value;
+                approximate += value;
             }
 
-            Console.WriteLine("{0,3} = {1}", x_Value, approximation);
-            return approximation;
+            Console.WriteLine("{0,3} = {1}", x_Value, approximate);
+            return approximate;
         }
 
         static double NewtonPolynomial()
