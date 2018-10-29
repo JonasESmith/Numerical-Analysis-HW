@@ -9,9 +9,9 @@ namespace NumericalHW4
     class NumericalHw4
     {
 
-        // Init pointsList for use in the different approximations. These are the points given from the HW.
+        // Init pointsList for use in the different approximations. These are the points given in the HW.
         public static List<Point> points_List = new List<Point>()
-        {   // new Point( xVal, yVal),
+        {   
             new Point( 0   , 2      ),
             new Point( 1   , 5.4375 ),
             new Point( 2.5 , 7.3516 ),
@@ -24,12 +24,11 @@ namespace NumericalHW4
         static void Main()
         {
             // Takes passed x_value and approximates the value of the Lagrange interpolating polynomial
-            LagrangePolynomial(2.75);
+            LagrangePolynomial(2.5);
 
-            Console.WriteLine("{0}", NewtonPolynomial(points_List.Count, 2.75, 0));
+            Console.WriteLine("{0}", NewtonPolynomial(points_List.Count, 2.5, 0));
             Console.ReadLine();
         }
-
 
         static double LagrangePolynomial(double x_Value)
         {
