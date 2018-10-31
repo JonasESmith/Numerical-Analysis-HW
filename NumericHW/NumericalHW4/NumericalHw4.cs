@@ -41,14 +41,14 @@ namespace NumericalHW4
             aValues.Add(points_List[0].Y);
             for(int i = 0; i < points_List.Count; i++)
             {
-                table[0, i] = points_List[i].X;
+                table[0, i] = points_List[i].Y;
             }
 
             for(int i = 1; i < points_List.Count; i++)
             {
                 for (int j = count; j < points_List.Count; j++)
                 {
-                    table[i, j] = (table[i - 1, j] - table[i - 1, j - 1]) / (points_List[j].Y - points_List[j - 1].Y);
+                    table[i, j] = (table[i-1, j] - table[i-1, j - 1]) / (points_List[j].X - points_List[j - count].X);
 
                     if(j == count)
                     {
