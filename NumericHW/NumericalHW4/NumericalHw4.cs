@@ -11,23 +11,53 @@ namespace NumericalHW4
 
         // Init pointsList for use in the different approximations. These are the points given in the HW.
         public static List<Point> points_List = new List<Point>()
-        {   
-            new Point( 0   , 2      ),
-            new Point( 1   , 5.4375 ),
-            new Point( 2.5 , 7.3516 ),
-            new Point( 3   , 7.5625 ),
-            new Point( 4.5 , 8.4453 ),
-            new Point( 5   , 9.1875 ),
-            new Point( 6   , 12     )
+        {
+            new Point( 0.0, -6.00000 ),
+            new Point( 0.1, -5.89483 ),
+            new Point( 0.3, -5.65014 ),
+            new Point( 0.6, -5.17788 ),
+            new Point( 1.0, -4.28172 )
         };
+
+        public static List<double> aValues = new List<double>();
 
         static void Main()
         {
             // Takes passed x_value and approximates the value of the Lagrange interpolating polynomial
-            LagrangePolynomial(2.5);
+            LagrangePolynomial(1.0);
 
-            Console.WriteLine("{0}", NewtonPolynomial(points_List.Count, 2.5, 0));
+            FindCoefficiants();
+
+            Console.WriteLine("{0}", NewtonPolynomial(points_List.Count, 1.0, 0));
             Console.ReadLine();
+        }
+
+        // Finds the coefficients used for the newtonian method. 
+        static void FindCoefficiants()
+        {
+            int count = 1; 
+            double[,] table = new double[points_List.Count, points_List.Count];
+
+            aValues.Add(points_List[0].Y);
+            for(int i = 0; i < points_List.Count; i++)
+            {
+                table[0, i] = points_List[i].X;
+            }
+
+            for(int i = 1; i < points_List.Count; i++)
+            {
+                for (int j = count; j < points_List.Count; j++)
+                {
+                    table[i, j] = (table[i - 1, j] - table[i - 1, j - 1]) / (points_List[j].Y - points_List[j - 1].Y);
+
+                    if(j == count)
+                    {
+                        aValues.Add(table[i, j]);  
+                    }
+                }
+
+                count++;
+            }
         }
 
         static double LagrangePolynomial(double x_Value)
@@ -68,7 +98,7 @@ namespace NumericalHW4
                 {
                     multipliedValue *= (xValue - points_List[i - 1].X);
                 }
-                value += NewtonPolynomial(index - 1, xValue, value) + points_List[index - 1].Y * multipliedValue;
+                value += NewtonPolynomial(index - 1, xValue, value) + aValues[index - 1] * multipliedValue;
             }
 
             return value;
