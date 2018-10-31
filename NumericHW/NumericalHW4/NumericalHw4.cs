@@ -24,40 +24,68 @@ namespace NumericalHW4
         static void Main()
         {
             // Takes passed x_value and approximates the value of the Lagrange interpolating polynomial
+            // These two functions bellow actually approximate the functions for the lagrange and newton method.
             LagrangePolynomial(1.0);
+            NewtonPolynomial(points_List.Count, 1.0, 0);
+
 
             FindCoefficiants();
+            Console.WriteLine("P{0}(X) = {1}", points_List.Count - 1, LagrangePolynomialString(1.0));
+            Console.WriteLine("P{0}(X) = {1}", points_List.Count - 1, NewtonPolynomialString(points_List.Count, 1.0, ""));
 
-            Console.WriteLine("{0}", NewtonPolynomial(points_List.Count, 1.0, 0));
             Console.ReadLine();
         }
 
-        // Finds the coefficients used for the newtonian method. 
-        static void FindCoefficiants()
+        static double LagrangePolynomialString(double x_Value)
         {
-            int count = 1; 
-            double[,] table = new double[points_List.Count, points_List.Count];
+            int Degree = points_List.Count;
 
-            aValues.Add(points_List[0].Y);
-            for(int i = 0; i < points_List.Count; i++)
+            double approximate = 0.0;
+            double value = 1.0;
+
+            for (int i = 0; i < Degree; i++)
             {
-                table[0, i] = points_List[i].Y;
+                value = 1.0;
+
+                for (int j = 0; j < Degree; j++)
+                {
+                    if (i != j)
+                        value *= (x_Value - points_List[j].X) / (points_List[i].X - points_List[j].X);
+                }
+                value *= points_List[i].Y;
+
+                approximate += value;
             }
 
-            for(int i = 1; i < points_List.Count; i++)
-            {
-                for (int j = count; j < points_List.Count; j++)
-                {
-                    table[i, j] = (table[i-1, j] - table[i-1, j - 1]) / (points_List[j].X - points_List[j - count].X);
+            return approximate;
+        }
 
-                    if(j == count)
-                    {
-                        aValues.Add(table[i, j]);  
-                    }
+        // recursive method to find Newton polynomial
+        static string NewtonPolynomialString(int index, double xValue, string passedValue)
+        {
+            // This finds the coefficients for newtons polynomial method
+            FindCoefficiants();
+
+            string value = passedValue;
+            string multipliedValue = "";
+            string buffer = " + ";
+
+            if (index > 0)
+            {
+                if (index == 1)
+                    multipliedValue = "";
+                else
+                    multipliedValue = buffer;
+                for (int i = index - 1; i > 0; i--)
+                {
+                    string newValue = String.Format("({0} - {1})", "X", points_List[i - 1].X);
+                    multipliedValue += (newValue);
                 }
 
-                count++;
+                value += NewtonPolynomialString(index - 1, xValue, value) + (multipliedValue + aValues[index - 1]);
             }
+
+            return value;
         }
 
         static double LagrangePolynomial(double x_Value)
@@ -67,13 +95,13 @@ namespace NumericalHW4
             double approximate = 0.0;
             double value = 1.0;
 
-            for(int i = 0; i < Degree; i++)
+            for (int i = 0; i < Degree; i++)
             {
                 value = 1.0;
 
                 for (int j = 0; j < Degree; j++)
                 {
-                    if(i != j)
+                    if (i != j)
                         value *= (x_Value - points_List[j].X) / (points_List[i].X - points_List[j].X);
                 }
                 value *= points_List[i].Y;
@@ -81,17 +109,19 @@ namespace NumericalHW4
                 approximate += value;
             }
 
-            Console.WriteLine("{0,3} = {1}", x_Value, approximate);
             return approximate;
         }
 
         // recursive method to find Newton polynomial
         static double NewtonPolynomial(int index, double xValue, double passedValue)
         {
+            // This finds the coefficients for newtons polynomial method
+            FindCoefficiants();
+
             double value = passedValue;
             double multipliedValue;
 
-            if(index > 0)
+            if (index > 0)
             {
                 multipliedValue = 1.0;
                 for (int i = index - 1; i > 0; i--)
@@ -103,5 +133,47 @@ namespace NumericalHW4
 
             return value;
         }
+
+        // Finds the coefficients used for the newtonian method. 
+        static void FindCoefficiants()
+        {
+            aValues.Clear();
+
+            int count = 1;
+            double[,] table = new double[points_List.Count, points_List.Count];
+
+            aValues.Add(points_List[0].Y);
+            for (int i = 0; i < points_List.Count; i++)
+            {
+                table[0, i] = points_List[i].Y;
+            }
+
+            for (int i = 1; i < points_List.Count; i++)
+            {
+                for (int j = count; j < points_List.Count; j++)
+                {
+                    table[i, j] = (table[i - 1, j] - table[i - 1, j - 1]) / (points_List[j].X - points_List[j - count].X);
+
+                    if (j == count)
+                    {
+                        aValues.Add(table[i, j]);
+                    }
+                }
+
+                count++;
+            }
+        }
     }
 }
+
+
+
+/// Console outputers
+/// Newtonian Method
+/// P4(X) = -6 + (X - 0)1.0517 
+///            + (X - 0.1)(X - 0)0.572499999999983 
+///            + (X - 0.3)(X - 0.1)(X - 0)0.215000000000042 
+///            + (X - 0.6)(X - 0.3)(X - 0.1)(X - 0)0.0630158730158207
+///            
+/// Lagrange Method
+/// 
