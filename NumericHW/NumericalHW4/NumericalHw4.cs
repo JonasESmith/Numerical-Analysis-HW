@@ -30,30 +30,38 @@ namespace NumericalHW4
 
 
             FindCoefficiants();
-            Console.WriteLine("P{0}(X) = {1}", points_List.Count - 1, LagrangePolynomialString(1.0));
+            Console.WriteLine("P{0}(X) = {1}", points_List.Count - 1, LagrangePolynomialString(""));
             Console.WriteLine("P{0}(X) = {1}", points_List.Count - 1, NewtonPolynomialString(points_List.Count, 1.0, ""));
 
             Console.ReadLine();
         }
 
-        static double LagrangePolynomialString(double x_Value)
+        static string LagrangePolynomialString(string x_Value)
         {
             int Degree = points_List.Count;
 
-            double approximate = 0.0;
-            double value = 1.0;
+            double denominator = 1.0;
+            string approximate = "";
+            string value = "";
 
             for (int i = 0; i < Degree; i++)
             {
-                value = 1.0;
+                value = String.Format("[ {0} (", points_List[i].Y); 
 
+                denominator = 1.0;
                 for (int j = 0; j < Degree; j++)
                 {
+                    string newValue = String.Format("({0} - {1})", "X", points_List[j].X);
                     if (i != j)
-                        value *= (x_Value - points_List[j].X) / (points_List[i].X - points_List[j].X);
+                    {
+                        value += newValue;
+                        denominator *= (points_List[i].X - points_List[j].X);
+                    }
                 }
-                value *= points_List[i].Y;
+                value += ") / " + denominator.ToString() + " ]";
 
+                if (i < Degree - 1)
+                    value += " + ";
                 approximate += value;
             }
 
@@ -168,7 +176,7 @@ namespace NumericalHW4
 
 
 
-/// Console outputers
+/// Console Outputs
 /// Newtonian Method
 /// P4(X) = -6 + (X - 0)1.0517 
 ///            + (X - 0.1)(X - 0)0.572499999999983 
@@ -176,4 +184,8 @@ namespace NumericalHW4
 ///            + (X - 0.6)(X - 0.3)(X - 0.1)(X - 0)0.0630158730158207
 ///            
 /// Lagrange Method
-/// 
+/// P4(X) = [ -6 ((X - 0.1)(X - 0.3)(X - 0.6)(X - 1)) / 0.018 ] 
+///            + [ -5.89483 ((X - 0)(X - 0.3)(X - 0.6)(X - 1)) / -0.009 ] 
+///            + [ -5.65014 ((X - 0)(X - 0.1)(X - 0.6)(X - 1)) / 0.0126 ] 
+///            + [ -5.17788 ((X - 0)(X - 0.1)(X - 0.3)(X - 1)) / -0.036 ] 
+///            + [ -4.28172 ((X - 0)(X - 0.1)(X - 0.3)(X - 0.6)) / 0.252 ]
