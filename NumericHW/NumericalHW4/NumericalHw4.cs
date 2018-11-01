@@ -1,8 +1,8 @@
-﻿using System;
+﻿// Programmer : Jonas Smith
+// Purpose    : Approximate a function value based on the Lagrange and newtonian methods for approximating functions. 
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NumericalHW4
 {
@@ -12,15 +12,11 @@ namespace NumericalHW4
         // Init pointsList for use in the different approximations. These are the points given in the HW.
         public static List<Point> points_List = new List<Point>()
         {
-            //new Point( 0.0, -6.00000 ),
-            //new Point( 0.1, -5.89483 ),
-            //new Point( 0.3, -5.65014 ),
-            //new Point( 0.6, -5.17788 ),
-            //new Point( 1.0, -4.28172 )
-            new Point( 0.1, -.62049958 ),
-            new Point( 0.2, -.28398668 ),
-            new Point( 0.3, 0.00660095 ),
-            new Point( 0.4, 0.24842440 ),
+            new Point( 0.0, -6.00000 ),
+            new Point( 0.1, -5.89483 ),
+            new Point( 0.3, -5.65014 ),
+            new Point( 0.6, -5.17788 ),
+            new Point( 1.0, -4.28172 )
         };
 
         public static List<double> aValues = new List<double>();
@@ -34,12 +30,15 @@ namespace NumericalHW4
 
 
             FindCoefficiants();
+            Console.WriteLine("Lagrange Method");
             Console.WriteLine("P{0}(X) = {1}", points_List.Count - 1, LagrangePolynomialString(""));
+            Console.WriteLine("Newtonian Method");
             Console.WriteLine("P{0}(X) = {1}", points_List.Count - 1, NewtonPolynomialString(points_List.Count, 1.0, ""));
 
             Console.ReadLine();
         }
 
+        // Converts the lagrange method into a readable string :)
         static string LagrangePolynomialString(string x_Value)
         {
             int Degree = points_List.Count;
@@ -100,6 +99,7 @@ namespace NumericalHW4
             return value;
         }
 
+        // Method to find approximation value at a given x value based on points given. 
         static double LagrangePolynomial(double x_Value)
         {
             int Degree = points_List.Count;
