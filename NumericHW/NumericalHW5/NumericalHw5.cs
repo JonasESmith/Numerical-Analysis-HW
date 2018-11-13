@@ -42,15 +42,15 @@ namespace NumericalHW5
             {
                 node_Space_H = Math.Pow(10, -index);
 
-                Console.WriteLine("  10^-{0,-2}| {1,16} | {2,16} || {3, 16} | {4, 16} || {5, 16} | {6, 16} |"
-                                                                              , index
-                                                                              , String.Format("{0:N13}", formula_Two(x_not))
-                                                                              , String.Format("{0:N13}", formula_Two(x_not) - function_Value )
-                                                                              , String.Format("{0:N13}", formula_Three(x_not))
-                                                                              , String.Format("{0:N13}", formula_Three(x_not) - function_Value )
-                                                                              , String.Format("{0:N13}", formula_Ten(x_not))
-                                                                              , String.Format("{0:N13}", formula_Ten(x_not) - function_Value)
-                                                                              );
+                Console.WriteLine("  10^-{0,-2}| {1,16} | {2,16} || {3, 16} | {4, 16} || {5, 16} | {6, 16} ||"
+                                  , index
+                                  , String.Format("{0:N13}", formula_Two(x_not))
+                                  , String.Format("{0:N13}", formula_Two(x_not) - function_Value )
+                                  , String.Format("{0:N13}", formula_Three(x_not))
+                                  , String.Format("{0:N13}", formula_Three(x_not) - function_Value )
+                                  , String.Format("{0:N13}", formula_Ten(x_not))
+                                  , String.Format("{0:N13}", formula_Ten(x_not) - function_Value)
+                                  );
                 index++;
             }
             while (index <= 10);
