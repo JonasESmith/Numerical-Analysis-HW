@@ -12,11 +12,16 @@ namespace NumericalHW4
         // Init pointsList for use in the different approximations. These are the points given in the HW.
         public static List<Point> points_List = new List<Point>()
         {
-            new Point( 0.0, -6.00000 ),
-            new Point( 0.1, -5.89483 ),
-            new Point( 0.3, -5.65014 ),
-            new Point( 0.6, -5.17788 ),
-            new Point( 1.0, -4.28172 )
+            //new Point( 0.0, -6.00000 ),
+            //new Point( 0.1, -5.89483 ),
+            //new Point( 0.3, -5.65014 ),
+            //new Point( 0.6, -5.17788 ),
+            //new Point( 1.0, -4.28172 ),
+            new Point( 1, 3.6 ),
+            new Point( 2, 1.8 ),
+            new Point( 3, 1.2 ),
+            new Point( 4, 0.9 ),
+            new Point( 5, 0.72 )
         };
 
         public static List<double> aValues = new List<double>();
