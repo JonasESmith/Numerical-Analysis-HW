@@ -25,48 +25,47 @@ namespace NumericalHW5
 
         static void Main()
         {
+            // init derivative function value
             function_Value = derivative_function(x_not);
 
+            // print all results
             PrintResults();
             Console.ReadLine();
         }
 
-
+        // Prints all calculations for formulas
         static void PrintResults()
         {
-            int index = 1;
-
             /// Prints headers for the applications
-            Console.WriteLine("");
+            Console.WriteLine("                  PROGRAMMER : JONAS SMITH                     NumericalHW5                           {0}", DateTime.Now.ToString());
             Console.WriteLine("--------| |-------------------------------------| |-------------------------------------| |-------------------------------------||");
             Console.WriteLine("  step  | | Approximation by |    Error using   | | Approximation by |    Error using   | | Approximation by |   Error using    ||");
             Console.WriteLine("  size  | |    formula (2)   |    formula (2)   | |    formula (3)   |    formula (3)   | |   formula (10)   |   formula (10)   ||");
             Console.WriteLine("--------| |------------------|------------------| |------------------|------------------| |------------------|------------------||");
 
-            /// Initialize all values used for finding optimal h value
-            double node_Space_H = 0;
+            /// Initialize all values used in the loop
+            double next_Node           = 0,
+                   node_Space_H        = 0,
+                   form_Two_Value      = 0,
+                   form_Thr_Value      = 0,
+                   form_Ten_Value      = 0,
+                   form_Two_error      = 0,
+                   form_Thr_error      = 0,
+                   form_Ten_error      = 0,
+                   previouse_Node      = 0, 
+                   last_form_Two_error = form_Two_error,
+                   last_form_Thr_error = form_Thr_error,
+                   last_form_Ten_error = form_Ten_error;
 
-            double form_Two_Value = 0;
-            double form_Thr_Value = 0;
-            double form_Ten_Value = 0;
+            bool   form_Two = false,
+                   form_Thr = false,
+                   form_Ten = false;
 
-            double form_Two_error = 0;
-            double form_Thr_error = 0;
-            double form_Ten_error = 0;
-
-            double last_form_Two_error = form_Two_error;
-            double last_form_Thr_error = form_Thr_error;
-            double last_form_Ten_error = form_Ten_error;
-
-            bool form_Two = false;
-            bool form_Thr = false;
-            bool form_Ten = false;
-
-            int form_Two_Optimal_H = 0;
-            int form_Thr_Optimal_H = 0;
-            int form_Ten_Optimal_H = 0;
-
-            int continue_Iterating = 10;
+            int    index = 1,
+                   form_Two_Optimal_H = 0,
+                   form_Thr_Optimal_H = 0,
+                   form_Ten_Optimal_H = 0,
+                   continue_Iterating = 10;
 
             do
             {
@@ -84,51 +83,32 @@ namespace NumericalHW5
                 // computes the values and outputs to the console foreach lines
                 Console.WriteLine("  10^-{0,-2}| | {1,16} | {2,16} | | {3, 16} | {4, 16} | | {5, 16} | {6, 16} ||"
                                   , index
-                                  , String.Format("{0:N13}", form_Two_Value)
-                                  , String.Format("{0:N13}", form_Two_error)
-                                  , String.Format("{0:N13}", form_Thr_Value)
+                                  , String.Format("{0:N13}", form_Two_Value) , String.Format("{0:N13}", form_Two_error)
+                                  , String.Format("{0:N13}", form_Thr_Value) , String.Format("{0:N13}", form_Thr_error)
+                                  , String.Format("{0:N13}", form_Ten_Value) , String.Format("{0:N13}", form_Ten_error) );
 
-                                  , String.Format("{0:N13}", form_Thr_error)
-                                  , String.Format("{0:N13}", form_Ten_Value)
-                                  , String.Format("{0:N13}", form_Ten_error)
-                                  );
+                previouse_Node = Math.Pow(10, -(index - 1) ); next_Node = Math.Pow(10, -(index + 1));
 
-                double previouse_Node = Math.Pow(10, -(index - 1) );
-                double next_Node = Math.Pow(10, -(index + 1));
+                // check for difference in derivative approximation for the formula ( 2 )
+                if (index != 1 && ( Math.Abs(formula_Two(x_not, next_Node)     - formula_Two(x_not, node_Space_H))) >= 
+                                    Math.Abs((formula_Two(x_not, node_Space_H) - formula_Two(x_not, previouse_Node))) && !form_Two)
+                {   form_Two = true; form_Two_Optimal_H = index; }
 
+                // check for difference in derivative approximation for the formula ( 3 )
+                if (index != 1 && (Math.Abs(formula_Three(x_not, next_Node)     - formula_Three(x_not, node_Space_H))) >= 
+                                   Math.Abs((formula_Three(x_not, node_Space_H) - formula_Three(x_not, previouse_Node))) && !form_Thr)
+                {   form_Thr = true; form_Thr_Optimal_H = index; }
 
-                // conditional statements foreach of the formulas
-                if (index != 1 && ( Math.Abs(formula_Two(x_not, next_Node) - formula_Two(x_not, node_Space_H))) 
-                                 >= Math.Abs((formula_Two(x_not, node_Space_H) - formula_Two(x_not, previouse_Node))) && !form_Two)
-                {
-                    form_Two = true;
-                    form_Two_Optimal_H = index;
-                }
-                if (index != 1 && (Math.Abs(formula_Three(x_not, next_Node) - formula_Three(x_not, node_Space_H))) 
-                                >= Math.Abs((formula_Three(x_not, node_Space_H) - formula_Three(x_not, previouse_Node))) && !form_Thr)
-                {
-                    form_Thr = true;
-                    form_Thr_Optimal_H = index;
-                }
-                if (index != 1 && (Math.Abs(formula_Ten(x_not, next_Node) - formula_Ten(x_not, node_Space_H))) 
-                                >= Math.Abs((formula_Ten(x_not, node_Space_H) - formula_Ten(x_not, previouse_Node))) && !form_Ten)
-                {
-                    form_Ten = true;
-                    form_Ten_Optimal_H = index;
-                }
+                // check for difference in derivative approximation for the formula ( 10 )
+                if (index != 1 && (Math.Abs(formula_Ten(x_not, next_Node)     - formula_Ten(x_not, node_Space_H))) >= 
+                                   Math.Abs((formula_Ten(x_not, node_Space_H) - formula_Ten(x_not, previouse_Node))) && !form_Ten)
+                {   form_Ten = true; form_Ten_Optimal_H = index; }
 
-                if (form_Two && form_Thr && form_Ten && continue_Iterating > 5)
-                {
-                    continue_Iterating = 2;
-                }
-                else if(continue_Iterating > 5)
-                {
-                    continue_Iterating = 10;
-                }
+                // if all formula checks have passed then we can iterate one more time and quit.
+                if (form_Two && form_Thr && form_Ten && continue_Iterating > 5) continue_Iterating = 2;
+                else if(continue_Iterating > 5) continue_Iterating = 10;
 
-                continue_Iterating--;
-
-                index++;
+                continue_Iterating--; index++;
             }
             while (continue_Iterating > 0);
 
@@ -137,13 +117,31 @@ namespace NumericalHW5
             Console.WriteLine();
 
 
+
+            // To display the final results I need to store the index in which the difference is the smallest
+            //  and recalculate the results based on that h value
             node_Space_H = Math.Pow(10, -form_Two_Optimal_H);
-            Console.WriteLine("Optimal step size for each method : formula (2) : 10^-{0} at f'(x0) = {2}", form_Two_Optimal_H, x_not, String.Format("{0:N13}", formula_Two(x_not, node_Space_H)));
+            Console.WriteLine("Optimal step size for each method : f" +
+                              "ormula (2) : 10^-{0} at f'(x0) = {2}", form_Two_Optimal_H, x_not
+                                                                    , String.Format("{0:N13}"
+                                                                    , formula_Two(x_not, node_Space_H)));
+
             node_Space_H = Math.Pow(10, -form_Thr_Optimal_H);
-            Console.WriteLine("                                    formula (3) : 10^-{0} at f'(x0) = {2}", form_Thr_Optimal_H, x_not, String.Format("{0:N13}", formula_Three(x_not, node_Space_H)));
+            Console.WriteLine("                                    " +
+                              "formula (3) : 10^-{0} at f'(x0) = {2}", form_Thr_Optimal_H, x_not
+                                                                     , String.Format("{0:N13}"
+                                                                     , formula_Three(x_not, node_Space_H)));
+
             node_Space_H = Math.Pow(10, -form_Ten_Optimal_H);
-            Console.WriteLine("                                    formula (10): 10^-{0} at f'(x0) = {2}", form_Ten_Optimal_H, x_not, String.Format("{0:N13}", formula_Ten(x_not, node_Space_H)));
+            Console.WriteLine("                                    f" +
+                              "ormula (10): 10^-{0} at f'(x0) = {2}", form_Ten_Optimal_H, x_not
+                                                                    , String.Format("{0:N13}"
+                                                                    , formula_Ten(x_not, node_Space_H)));
         }
+
+        //**********************************************************//
+        //                  Formulas (2),(3), & (10)                //
+        //**********************************************************//
 
         static double formula_Two(double x_input, double node_Space_H)
         {
@@ -170,7 +168,11 @@ namespace NumericalHW5
     }
 }
 
-// output of console 
+//**********************************************************//
+//                     CONSOLE OUTPUT                       //
+//**********************************************************//
+
+//                  PROGRAMMER : JONAS SMITH                     NumericalHW5                           11/15/2018 10:39:55 AM
 //--------| |-------------------------------------| |-------------------------------------| |-------------------------------------||
 //  step  | | Approximation by |    Error using   | | Approximation by |    Error using   | | Approximation by |   Error using    ||
 //  size  | |    formula (2)   |    formula (2)   | |    formula (3)   |    formula (3)   | |   formula (10)   |   formula (10)   ||
@@ -186,7 +188,7 @@ namespace NumericalHW5
 //  10^-9 | | -5.2607066480803 |  0.0000000080962 | | -5.2607067591026 |  0.0000001191185 | | -5.2607068238656 |  0.0000001838815 ||
 //  10^-10| | -5.2607052047904 | -0.0000014351938 | | -5.2607052047904 | -0.0000014351938 | | -5.2607048347160 | -0.0000018052681 ||
 //--------| |------------------|------------------| |------------------|------------------| |------------------|------------------||
-//
+
 //Optimal step size for each method : formula (2) : 10^-9 at f'(x0) = -5.2607066480803
 //                                    formula (3) : 10^-7 at f'(x0) = -5.2607066403088
 //                                    formula (10): 10^-5 at f'(x0) = -5.2607066399960
