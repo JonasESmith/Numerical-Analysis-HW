@@ -65,7 +65,7 @@ namespace NumericalHW5
             int form_Thr_Optimal_H = 0;
             int form_Ten_Optimal_H = 0;
 
-            bool continue_Iterating = true;
+            int continue_Iterating = 10;
 
             do
             {
@@ -92,37 +92,6 @@ namespace NumericalHW5
                                   , String.Format("{0:N13}", form_Ten_error)
                                   );
 
-                if(false)
-                {
-                    //|Dn+1 - Dn| >= |Dn - Dn-1|
-                    if (form_Two_error > last_form_Two_error && index != 1)
-                    {
-                        form_Two = true;
-                        form_Two_Optimal_H = index - 1;
-                    }
-                    else
-                        last_form_Two_error = form_Two_error;
-
-                    if (form_Thr_error > last_form_Thr_error && index != 1 && !form_Thr)
-                    {
-                        form_Thr = true;
-                        form_Thr_Optimal_H = index - 1;
-                    }
-                    else
-                        last_form_Thr_error = form_Thr_error;
-
-                    if (form_Ten_error > last_form_Ten_error && index != 1 && !form_Ten)
-                    {
-                        form_Ten = true;
-                        form_Ten_Optimal_H = index - 1;
-                    }
-                    else
-                        last_form_Ten_error = form_Ten_error;
-
-                    if (form_Two && form_Thr && form_Ten)
-                        continue_Iterating = false;
-                }
-
                 double previouse_Node = Math.Pow(10, -(index - 1) );
                 double next_Node = Math.Pow(10, -(index + 1));
 
@@ -142,12 +111,20 @@ namespace NumericalHW5
                     form_Ten_Optimal_H = index;
                 }
 
-                if (form_Two && form_Thr && form_Ten)
-                    continue_Iterating = false;
+                if (form_Two && form_Thr && form_Ten && continue_Iterating > 5)
+                {
+                    continue_Iterating = 2;
+                }
+                else if(continue_Iterating > 5)
+                {
+                    continue_Iterating = 10;
+                }
+
+                continue_Iterating--;
 
                 index++;
             }
-            while (continue_Iterating);
+            while (continue_Iterating > 0);
 
             Console.WriteLine("--------| |------------------|------------------| |------------------|------------------| |------------------|------------------|| ");
             Console.WriteLine();
@@ -189,7 +166,7 @@ namespace NumericalHW5
 // output of console 
 //--------| |-------------------------------------| |-------------------------------------| |-------------------------------------||
 //  step  | | Approximation by |    Error using   | | Approximation by |    Error using   | | Approximation by |   Error using    ||
-//  size  | |    formula(2)   |    formula(2)   | |    formula(3)   |    formula(3)   | |   formula(10)   |   formula(10)   ||
+//  size  | |    formula (2)   |    formula (2)   | |    formula (3)   |    formula (3)   | |   formula (10)   |   formula (10)   ||
 //--------| |------------------|------------------| |------------------|------------------| |------------------|------------------||
 //  10^-1 | |  1.4102689808905 | -6.6709756208746 | | -4.7231852939287 | -0.5375213460554 | | -5.5680910850784 |  0.3073844450943 ||
 //  10^-2 | | -4.5414390213222 | -0.7192676186619 | | -5.2566545045505 | -0.0040521354337 | | -5.2607664030114 |  0.0000597630273 ||
@@ -200,8 +177,9 @@ namespace NumericalHW5
 //  10^-7 | | -5.2606994760396 | -0.0000071639446 | | -5.2607066403088 |  0.0000000003246 | | -5.2607066401237 |  0.0000000001396 ||
 //  10^-8 | | -5.2607059153331 | -0.0000007246510 | | -5.2607066369781 | -0.0000000030061 | | -5.2607066416040 |  0.0000000016199 ||
 //  10^-9 | | -5.2607066480803 |  0.0000000080962 | | -5.2607067591026 |  0.0000001191185 | | -5.2607068238656 |  0.0000001838815 ||
+//  10^-10| | -5.2607052047904 | -0.0000014351938 | | -5.2607052047904 | -0.0000014351938 | | -5.2607048347160 | -0.0000018052681 ||
 //--------| |------------------|------------------| |------------------|------------------| |------------------|------------------||
 //
-//Optimal step size for each method : formula(2) : 10^-8 at f'(x0) = -5.2607059153331
-//                                    formula(3) : 10^-6 at f'(x0) = -5.2607066400867
-//                                    formula(10) : 10^-4 at f'(x0) = -5.2607066399839
+//Optimal step size for each method : formula (2) : 10^-9 at f'(x0) = -5.2607066480803
+//                                    formula (3) : 10^-7 at f'(x0) = -5.2607066403088
+//                                    formula (10): 10^-5 at f'(x0) = -5.2607066399960
