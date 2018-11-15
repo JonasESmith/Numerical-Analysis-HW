@@ -36,6 +36,7 @@ namespace NumericalHW5
         {
             int index = 1;
 
+            /// Prints headers for the applications
             Console.WriteLine("");
             Console.WriteLine("--------| |-------------------------------------| |-------------------------------------| |-------------------------------------||");
             Console.WriteLine("  step  | | Approximation by |    Error using   | | Approximation by |    Error using   | | Approximation by |   Error using    ||");
@@ -69,7 +70,7 @@ namespace NumericalHW5
 
             do
             {
-                // class wide variable for the H node size
+                // setting the node size for each iteration
                 node_Space_H = Math.Pow(10, -index);
 
                 form_Two_Value = formula_Two(x_not, node_Space_H);
@@ -95,17 +96,22 @@ namespace NumericalHW5
                 double previouse_Node = Math.Pow(10, -(index - 1) );
                 double next_Node = Math.Pow(10, -(index + 1));
 
-                if (index != 1 && ( Math.Abs(formula_Two(x_not, next_Node) - formula_Two(x_not, node_Space_H))) >= Math.Abs((formula_Two(x_not, node_Space_H) - formula_Two(x_not, previouse_Node))) && !form_Two)
+
+                // conditional statements foreach of the formulas
+                if (index != 1 && ( Math.Abs(formula_Two(x_not, next_Node) - formula_Two(x_not, node_Space_H))) 
+                                 >= Math.Abs((formula_Two(x_not, node_Space_H) - formula_Two(x_not, previouse_Node))) && !form_Two)
                 {
                     form_Two = true;
                     form_Two_Optimal_H = index;
                 }
-                if (index != 1 && (Math.Abs(formula_Three(x_not, next_Node) - formula_Three(x_not, node_Space_H))) >= Math.Abs((formula_Three(x_not, node_Space_H) - formula_Three(x_not, previouse_Node))) && !form_Thr)
+                if (index != 1 && (Math.Abs(formula_Three(x_not, next_Node) - formula_Three(x_not, node_Space_H))) 
+                                >= Math.Abs((formula_Three(x_not, node_Space_H) - formula_Three(x_not, previouse_Node))) && !form_Thr)
                 {
                     form_Thr = true;
                     form_Thr_Optimal_H = index;
                 }
-                if (index != 1 && (Math.Abs(formula_Ten(x_not, next_Node) - formula_Ten(x_not, node_Space_H))) >= Math.Abs((formula_Ten(x_not, node_Space_H) - formula_Ten(x_not, previouse_Node))) && !form_Ten)
+                if (index != 1 && (Math.Abs(formula_Ten(x_not, next_Node) - formula_Ten(x_not, node_Space_H))) 
+                                >= Math.Abs((formula_Ten(x_not, node_Space_H) - formula_Ten(x_not, previouse_Node))) && !form_Ten)
                 {
                     form_Ten = true;
                     form_Ten_Optimal_H = index;
@@ -126,6 +132,7 @@ namespace NumericalHW5
             }
             while (continue_Iterating > 0);
 
+            /// printing the last couple output strings
             Console.WriteLine("--------| |------------------|------------------| |------------------|------------------| |------------------|------------------|| ");
             Console.WriteLine();
 
