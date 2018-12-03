@@ -18,10 +18,11 @@ namespace NumericalHW6
 
             for (int index = 0; index < subIntervals_M.Length; index++)
             {
-
                 nodeSpacing_H  = ( upperBound - lowerBound ) / subIntervals_M[index];
-
                 TrapezoidalRule(nodeSpacing_H, lowerBound + (index * nodeSpacing_H), index);
+
+                nodeSpacing_H = ( upperBound - lowerBound ) / ( subIntervals_M[index] * 2 );
+                SimpsonsRule(nodeSpacing_H, lowerBound, upperBound, index);
             }
         }
 
@@ -44,7 +45,7 @@ namespace NumericalHW6
         public double TrapezoidalError(double nodeSpaceH, double x_value, int index) {
             double functionSummation = 0.0;
 
-            for(int i = 1; i < subIntervals_M[index] - 1; i++)
+            for(int i = 1; i <= subIntervals_M[index] - 1; i++)
             {
                 functionSummation += function(x_value + (i * nodeSpaceH) );
             }
@@ -56,15 +57,28 @@ namespace NumericalHW6
 
 
         // Composite Simpson's Rule - Page 359 4c
-        public double SimpsonsRule(double nodeSpaceH, double x_value)
+        public double SimpsonsRule(double nodeSpaceH, double lowerBound, double upperBound, int index)
         {
-            return (nodeSpaceH / 3) * (function(x_value) + function(x_value + nodeSpaceH))
-                                    + nodeSpaceH * SimpsonsError(nodeSpaceH);
+            return (nodeSpaceH / 3) * (function(lowerBound) + function(upperBound))
+                                    + SimpsonsError(nodeSpaceH , lowerBound, index);
         }
 
-        public double SimpsonsError(double x_value)
+        public double SimpsonsError(double nodeSpaceH,double lowerBound, int index)
         {
-            return ((Math.Pow(x_value, 2) + x_value + 1) * Math.Cos(x_value));
+            double firstSummation  = 0.0;
+            double secondSummation = 0.0;
+
+            for(int i = 1; i <= subIntervals_M[index] - 1; i++)
+            {
+                firstSummation += function(lowerBound + ((2 * i) * nodeSpaceH));
+            }
+
+            for(int i = 1; i <= subIntervals_M[index]; i++)
+            {
+                secondSummation += function(lowerBound + ((2 * i - 1) * nodeSpaceH));
+            }
+
+            return (2 * nodeSpaceH) / 3 * (firstSummation) + ((4 * nodeSpaceH) / 3) * secondSummation;
         }
 
 
