@@ -12,8 +12,7 @@ namespace NumericalHW6
 
         static double actual_Value = (Math.PI / 2) +( Math.Pow(Math.PI, 2) / 4) - 2;
 
-        static void Main()
-        {
+        static void Main() {
             double upperBound     = Math.PI / 2;
             double lowerBound     = 0.0;
             double nodeSpacing_H  = 0.0;
@@ -23,39 +22,31 @@ namespace NumericalHW6
 
             printHeaders();
 
-            for (int index = 0; index < subIntervals_M.Length; index++)
-            {
+            for (int index = 0; index < subIntervals_M.Length; index++) {
                 nodeSpacing_H  = ( upperBound - lowerBound ) / subIntervals_M[index];
                 trapezoidValue = TrapezoidalRule(nodeSpacing_H, lowerBound, upperBound, index);
 
                 nodeSpacing_H = ( upperBound - lowerBound ) / ( subIntervals_M[index] * 2 );
                 simpsonsValue = SimpsonsRule(nodeSpacing_H, lowerBound, upperBound, index);
 
-                PrintResults(subIntervals_M[index], trapezoidValue, simpsonsValue);
-            }
+                PrintResults(subIntervals_M[index], trapezoidValue, simpsonsValue); }
 
             printFooter();
             Console.ReadLine();
         }
 
         // function for both composite methods bellow. 
-        static public double function(double x_value)
-        {
+        static public double function(double x_value) {
             return ((Math.Pow(x_value, 2) + x_value + 1 ) * Math.Cos(x_value));
         }
 
-        // Absolute error from the actual integral and the approximation
-        static public double AbsoluteError(double approximation)
-        {
+        // Absolute error from the actual integral and the approximation passed
+        static public double AbsoluteError(double approximation) {
             return Math.Abs(actual_Value - approximation);
         }
 
-
-
-
         // Composite Trapezoidal Rule - Page 357 1c
-        static public double TrapezoidalRule(double H, double lowerBound, double upperBound, int M)
-        {
+        static public double TrapezoidalRule(double H, double lowerBound, double upperBound, int M) {
             return (H / 2) * ( function(lowerBound) + function(upperBound) )
                                     + TrapezoidalSummation(H, lowerBound, M);
         }
@@ -64,48 +55,34 @@ namespace NumericalHW6
             double functionSummation = 0.0;
 
             for(int i = 1; i <= subIntervals_M[M] - 1; i++)
-            {
                 functionSummation += function(lowerBound + (i * H) );
-            }
 
             return H * functionSummation;
         }
 
-
-
-
         // Composite Simpson's Rule - Page 359 4c
-        static public double SimpsonsRule(double H, double lowerBound, double upperBound, int M)
-        {
+        static public double SimpsonsRule(double H, double lowerBound, double upperBound, int M) {
             return (H / 3) * (function(lowerBound) + function(upperBound))
                                     + SimpsonsSummation(H , lowerBound, M);
         }
 
-        static public double SimpsonsSummation(double H,double lowerBound, int index)
-        {
+        static public double SimpsonsSummation(double H,double lowerBound, int index) {
             double firstSummation  = 0.0;
             double secondSummation = 0.0;
 
             for(int i = 1; i <= subIntervals_M[index] - 1; i++)
-            {
                 firstSummation += function(lowerBound + ((2 * i) * H));
-            }
 
             for(int i = 1; i <= subIntervals_M[index]; i++)
-            {
                 secondSummation += function(lowerBound + ((2 * i - 1) * H));
-            }
 
             return (2 * H) / 3 * (firstSummation) + ((4 * H) / 3) * secondSummation;
         }
 
-
-        static void printHeaders()
-        {
+        static void printHeaders() {
             Console.WriteLine();
             Console.WriteLine("                       Programmer : Jonas Smith");
             Console.WriteLine();
-
             Console.WriteLine("  ________________________________________________________________ ");
             Console.WriteLine(" |     |              |              ||             |             |");
             Console.WriteLine(" |  M  |    T(f,h)    |    S(f,h)    ||  T() Error  |  S() Error  |");
@@ -115,13 +92,11 @@ namespace NumericalHW6
         }
 
         // prints the results for the methods used above and each interval. 
-        static public void PrintResults(int mSub_value, double trapezoidalValue, double simpsonsValue)
-        {
+        static public void PrintResults(int mSub_value, double trapezoidalValue, double simpsonsValue) {
             Console.WriteLine(" |{0,3}  | {1,12} | {2,12} || {3,8} | {4,8} |", mSub_value, 
                 String.Format("{0:N10}", trapezoidalValue), String.Format("{0:N10}", simpsonsValue), 
                 String.Format("{0:N9}", AbsoluteError(trapezoidalValue)), String.Format("{0:N9}", 
-                AbsoluteError(simpsonsValue)));
-        }
+                AbsoluteError(simpsonsValue))); }
     }
 }
 
