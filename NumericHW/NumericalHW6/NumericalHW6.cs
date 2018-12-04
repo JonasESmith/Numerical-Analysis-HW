@@ -31,9 +31,10 @@ namespace NumericalHW6
                 nodeSpacing_H = ( upperBound - lowerBound ) / ( subIntervals_M[index] * 2 );
                 simpsonsValue = SimpsonsRule(nodeSpacing_H, lowerBound, upperBound, index);
 
-                PrintResults(subIntervals_M[index], trapezoidValue, simpsonsValue, 123.00);
+                PrintResults(subIntervals_M[index], trapezoidValue, simpsonsValue);
             }
 
+            printFooter();
             Console.ReadLine();
         }
 
@@ -43,6 +44,12 @@ namespace NumericalHW6
             return ((Math.Pow(x_value, 2) + x_value + 1 ) * Math.Cos(x_value));
         }
 
+        // Absolute error from the actual integral and the approximation
+        static public double AbsoluteError(double approximation)
+        {
+            return Math.Abs(actual_Value - approximation);
+        }
+
 
 
 
@@ -50,10 +57,10 @@ namespace NumericalHW6
         static public double TrapezoidalRule(double H, double lowerBound, double upperBound, int M)
         {
             return (H / 2) * ( function(lowerBound) + function(upperBound) )
-                                    + TrapezoidalError(H, lowerBound, M);
+                                    + TrapezoidalSummation(H, lowerBound, M);
         }
 
-        static public double TrapezoidalError(double H, double lowerBound, int M) {
+        static public double TrapezoidalSummation(double H, double lowerBound, int M) {
             double functionSummation = 0.0;
 
             for(int i = 1; i <= subIntervals_M[M] - 1; i++)
@@ -71,10 +78,10 @@ namespace NumericalHW6
         static public double SimpsonsRule(double H, double lowerBound, double upperBound, int M)
         {
             return (H / 3) * (function(lowerBound) + function(upperBound))
-                                    + SimpsonsError(H , lowerBound, M);
+                                    + SimpsonsSummation(H , lowerBound, M);
         }
 
-        static public double SimpsonsError(double H,double lowerBound, int index)
+        static public double SimpsonsSummation(double H,double lowerBound, int index)
         {
             double firstSummation  = 0.0;
             double secondSummation = 0.0;
@@ -95,17 +102,25 @@ namespace NumericalHW6
 
         static void printHeaders()
         {
-            Console.WriteLine("|----|--------------|--------------|----------|");
-            Console.WriteLine("|                                             |");
-            Console.WriteLine("|----|--------------|--------------|----------|");
+            Console.WriteLine();
+            Console.WriteLine("                       Programmer : Jonas Smith");
+            Console.WriteLine();
+
+            Console.WriteLine("  ________________________________________________________________ ");
+            Console.WriteLine(" |     |              |              ||             |             |");
+            Console.WriteLine(" |  M  |    T(f,h)    |    S(f,h)    ||  T() Error  |  S() Error  |");
+            Console.WriteLine(" |-----|--------------|--------------||-------------|-------------|"); }
+        static void printFooter()
+        { Console.WriteLine(  " |_____|______________|______________||_____________|_____________|");
         }
 
         // prints the results for the methods used above and each interval. 
-        static public void PrintResults(int mSub_value, double trapezoidalValue, double simpsonsValue, double errorValue)
+        static public void PrintResults(int mSub_value, double trapezoidalValue, double simpsonsValue)
         {
-            Console.WriteLine("|{0,3} | {1,12} | {2,12} | {3,8} |", mSub_value, String.Format("{0:N10}", trapezoidalValue), String.Format("{0:N10}", simpsonsValue), errorValue);
-            // print results in the form of SubInterValM[i], Trapezoidal, Simpson's, Error. 
+            Console.WriteLine(" |{0,3}  | {1,12} | {2,12} || {3,8} | {4,8} |", mSub_value, 
+                String.Format("{0:N10}", trapezoidalValue), String.Format("{0:N10}", simpsonsValue), 
+                String.Format("{0:N9}", AbsoluteError(trapezoidalValue)), String.Format("{0:N9}", 
+                AbsoluteError(simpsonsValue)));
         }
-
     }
 }
